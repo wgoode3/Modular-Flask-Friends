@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Modular Flask</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href='{{url_for("static", filename="css/style.css")}}'>
+</head>
+<body>
+
+<br><h2>Friends:</h2><br>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Edit</th>
+	</tr>
+	{% for friend in friends %}
+		<tr>
+			<td>{{ friend.name }}</td>
+			<td>{{ friend.email }}</td>
+			<td><a href="/edit/{{friend.id}}"><button class="btn">Edit</button></a></td>
+		</tr>
+	{% endfor %}
+</table>
+
+<br><h2>Editing {{ friend.name }}:</h2><br>
+
+<div class="friend_form">
+<form action="/update/{{ friend.id }}" method="post" class="inline">
+	<input type="text" name="name" value="{{ friend.name }}"><br>
+	<input type="text" name="email" value="{{ friend.email }}"><br>
+	<input type="submit" value="Edit Friend" class="btn">
+</form>
+<a href="/"><button class="btn">Cancel</button></a>
+<form action='/remove/{{ friend.id }}' method='post' class="inline">
+	<button type="submit" class="btn danger">Delete</button>
+</form>
+</div>
+
+<br><br>
+
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<div class="messages">
+			{% for message in messages %}
+				{% if message[:7] == 'Success' %}
+					<p class='success'>{{message}}<span class='close'>X</span></p>
+				{% else %}
+					<p class='error'>{{message}}<span class='close'>X</span></p>
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endif %}	
+{% endwith %}
+
+<script type="text/javascript" src='{{url_for("static", filename="js/script.js")}}'></script>
+
+</body>
+</html>
