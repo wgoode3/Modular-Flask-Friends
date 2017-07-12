@@ -1,13 +1,13 @@
 # Modular-Flask-Friends
 A Flask friend management app with a MVC structure à la Django.
 
-## Technologies
+## Technologies used
 * Python 2.7
 * Flask
-* mySQL
+* MySQL
 
 ## To get it running
-* Create a ```new_db``` database in mySQL with a table ```students```
+* Create a ```new_db``` database in MySQL with a table ```students```
 
 | Column Name | Datatype    |
 |:-----------:|:-----------:|
