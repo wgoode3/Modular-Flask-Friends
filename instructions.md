@@ -1,6 +1,7 @@
 # Modular Flask Assignment
 ## Part 1
 You have probably noticed that as the features of your website grow, the size of your server.py grows as well. You may have considered that you could better organize all this code into blocks so that as the size of the project increases you can still easily find the code that handles any given feature. You may have considered how when making a larger flask app certain queries could get called more than once in different functions. Rather than writing a query like ```mysql.query_db('SELECT * FROM friends')``` multiple times we might envision some way to instead have ```Friends.all()```. You can organize the code that communicates with your database into a standalone class and use that class in the functions that handle your views. Ultimately you can break off that class into its own file called models.py. You can also break off the functions that determine what is shown in the html templates into their own file and call it views.py. And last you can break the decorators that handle url routes into a file called urls.py. When you seperate these parts your project will have a MVC (Model, View, Controller) structure. MVC is a popular structure for laying out a web app. You will learn a lot more about MVC when you begin Django. 
+
 Return to your past Full Friends assignment. First create a new class that will have methods that you can use to make all the queries to your database that you will be needing. If you are familiar with the CRUD operations you essentially need those. Create, Read (one to fetch all friends and one for just a specific friend), Update, and Delete. The class you will make should be called FriendModel. Fill out each of the methods: create, getAll, getOne, update, and delete with the queries necessary to accomplish the task and do not forget to return something as well.
 ```python
 # add this into your server.py
@@ -93,11 +94,11 @@ Note that you could attempt to set app to be a global variable and then import s
 Next try breaking the decorator ```@app.route('/foo')``` off of the associated functions and organizing them all together with functions that call their original function. Be sure to give the new function unique names to prevent python from seeing the functions as recursive (functions that call themselves). 
 
 ```python
-@app.route('/'):
+@app.route('/')
 def indexRoute(): 
 	return index()
 
-@app.route('/new', methods=['POST']):
+@app.route('/new', methods=['POST'])
 def newRoute(): 
 	return new()
 
@@ -124,11 +125,11 @@ And now in server.py you need to import views.py and to tell your routes where t
 # add import views with the rest of your imports
 import views
 
-@app.route('/'):
+@app.route('/')
 def index(): 
 	return views.index()
 
-@app.route('/new', methods=['POST']):
+@app.route('/new', methods=['POST'])
 def new(): 
 	return views.new()
 
