@@ -6,7 +6,7 @@ Return to your past Full Friends assignment. First create a new class that will 
 ```python
 # add this into your server.py
 
-class FriendModel(objects):
+class FriendModel(object):
 	def create(self, name, age, friend_since):
 		pass
 	def getAll(self):
