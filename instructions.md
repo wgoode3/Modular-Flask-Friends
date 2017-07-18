@@ -26,30 +26,30 @@ Then go back to your code and instead of making a SQL query using ```friends = m
 You may consider making your create method work like the following
 ```python
 def create(self, name, email):
-		errors = []
+	errors = []
 		
-		if len(name) < 1:
-			errors.append('Name is required')
-		elif len(name < 3):
-			errors.append('Name must be 3 characters or more')
+	if len(name) < 1:
+		errors.append('Name is required')
+	elif len(name < 3):
+		errors.append('Name must be 3 characters or more')
 		
-		if len(email) < 1:
-			errors.append('Email is required')
-		elif not EMAIL_REGEX.match(email):
-			errors.append('Not a valid email')
+	if len(email) < 1:
+		errors.append('Email is required')
+	elif not EMAIL_REGEX.match(email):
+		errors.append('Not a valid email')
 
-		if len(errors) > 0:
-			return False, errors
-		else:
-			query = 'INSERT INTO friends (name, email) VALUES (:name, :email)'
-			data = {'name': name, 'email': email}
-			return True, mysql.query_db(query, data)
+	if len(errors) > 0:
+		return False, errors
+	else:
+		query = 'INSERT INTO friends (name, email) VALUES (:name, :email)'
+		data = {'name': name, 'email': email}
+		return True, mysql.query_db(query, data)
 ```
 If you have a method that also validates the data, you need to be able to handle both the cases when it should return errors and the cases when it saves something to the database. One way to accomplish this is by returning a tuple. It will be up to your view function to decide what to do with the data returned.
 ```python
 @app.route('/new', methods=['POST'])
 def new():
-	new_friend = Friend.create('Reimu Hakurei', 'reimu@hakurei.shrine')
+	new_friend = Friend.create(request.form['name'], request.form['email'])
 
 	if new_friend[0]:
 		# do something
@@ -83,8 +83,7 @@ app = Flask(__name__)
 app.secret_key = 'modularized flask app'
 
 db_connection(app, DB_NAME)
-
-...
+# ...
 ```
 You instantiate app like normal, and also set a variable DB_NAME to equal the name of your database. Next you run a function called db_connection and give it arguments app and DB_NAME. Invoking the function db_connection enables you to pass along the variables 'app' and 'db_name'.
 
