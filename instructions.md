@@ -123,7 +123,7 @@ def index():
 	friends = Friend.getAll()
 	return render_template('index.html', friends=friends)
 	
-and so on ...
+# and so on ...
 ```
 And now in server.py you need to import views.py and to tell your routes where to find the associated functions.
 ```python
