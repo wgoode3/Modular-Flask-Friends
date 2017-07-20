@@ -1,9 +1,7 @@
 # Modular Flask Assignment
 ## Part 1
 You have probably noticed that as the features of your website grow, the size of your server.py grows as well. Maybe you have considered that you could better organize all this code into blocks so that as the size of the project increases you can still easily find the code that handles any given feature. You may have even considered how when making a larger flask app certain queries could get called more than once in different functions. Rather than writing a query like ```mysql.query_db('SELECT * FROM friends')``` multiple times you might envision some way to instead just write ```Friends.all()```. You can organize the code that communicates with your database into a standalone class and use that class in the functions that handle your views. Ultimately you can break off that class into its own file called models.py. You can also break off the functions that determine what is shown in the html templates into their own file and call it views.py. And last you can break the decorators that handle url routes into a file called urls.py. When you seperate these parts your project will have a MVC (Model, View, Controller) structure. MVC is a popular structure for laying out a web app. You will learn a lot more about MVC when you begin Django. 
-
-![alt text](https://raw.githubusercontent.com/wgoode3/Modular-Flask-Friends/master/static/img/diagram.png "Logo Title Text 1")
-
+![diagram](https://raw.githubusercontent.com/wgoode3/Modular-Flask-Friends/master/static/img/diagram.png "diagram")
 Return to your past Full Friends assignment. First create a new class that will have methods that you can use to make all the queries to your database that you will be needing. If you are familiar with the CRUD operations you essentially need those. Create, Read (one to fetch all friends and one for just a specific friend), Update, and Delete. The class you will make should be called FriendModel. Fill out each of the methods: create, getAll, getOne, update, and delete with the queries necessary to accomplish the task and do not forget to return something as well.
 ```python
 # add this into your server.py
