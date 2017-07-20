@@ -28,7 +28,7 @@ class FriendModel(object):
 Friend = FriendModel()
 ```
 Then go back to your code and instead of making a SQL query using ```friends = mysql.query_db('SELECT * FROM friends')``` you can instead make a SQL query using ```friends = Friend.getAll()```.
-You may consider making your create method work like the following:
+You want to add validations to your create method, you can make your create method work like the following:
 ```python
 def create(self, name, email):
 	errors = []
@@ -64,6 +64,7 @@ def new():
 After rewriting your code go to ```localhost:5000``` and ensure the site still works. Modularizing a Flask app can be tricky, and catching bugs immediately after writing the code that produced them will make them easier to spot.
 ## Part 2
 The next step should be easy. You are going to move the FriendModel class to a seperate file called models.py. Note that models is plural, if you had additional tables like courses, or products you would do the same thing and break them out of your server.py and make them a part of models as well.
+In order to get access to app, you will create a function called db_connection that takes the arguments 'app' and 'db_name'. You will use this to create a global variable mysql. A global variable is 'scoped' so that other classes and functions outside of the function db_connection can use it.
 ```python
 # in a new file called models.py
 
@@ -76,7 +77,7 @@ def db_connection(app, db_name):
 # put the FriendModel class here ...
 
 ```
-In order to get access to app, you will create a function called db_connection that takes the arguments 'app' and 'db_name'. You will use this to create a global variable mysql. A global variable is 'scoped' so that other classes and functions outside of the function db_connection can use it.
+In server.py you instantiate app like normal, and also set a variable DB_NAME to equal the name of your database. Next you run a function called db_connection and give it arguments app and DB_NAME. Invoking the function db_connection enables you to pass along the variables 'app' and 'db_name'.
 ```python
 # in your server.py
 from flask import Flask, render_template, redirect, request, session, flash
@@ -90,13 +91,9 @@ app.secret_key = 'modularized flask app'
 db_connection(app, DB_NAME)
 # ...
 ```
-You instantiate app like normal, and also set a variable DB_NAME to equal the name of your database. Next you run a function called db_connection and give it arguments app and DB_NAME. Invoking the function db_connection enables you to pass along the variables 'app' and 'db_name'.
-
 Note that you could attempt to set app to be a global variable and then import server in our models.py. This is known as a _circular import_ where server is importing something from models and models is importing from server. This is considered something to be avoided.
 ## Part 3
-
 Next try breaking the decorator ```@app.route('/foo')``` off of the associated functions and organizing them all together with functions that call their original function. Be sure to give the new function unique names to prevent python from seeing the functions as recursive (functions that call themselves). 
-
 ```python
 @app.route('/')
 def indexRoute(): 
@@ -160,7 +157,7 @@ def routes(app):
 	# ...the rest of your routes go here
 
 ```
-And don't forget to import the routes function in server and to run it. This is how you will pass the app to urls.py.
+Don't forget to import the routes function in server and to run it. This is how you will pass the 'app' to urls.py.
 ```python
 # in server.py don't forget to import routes
 from urls import routes
