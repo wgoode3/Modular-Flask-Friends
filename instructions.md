@@ -113,7 +113,7 @@ def index():
 ```
 Now go back to ```localhost:5000``` and test that all of the routes can still be easily reached.
 ## Part 4
-The next step is to create a new file called views.py. You will be moving the functions that were fomrerly associated with the decorators ```@app.route('/foo')``` functions into views.py. 
+The next step is to create a new file called views.py. You will be moving the functions that were formerly associated with the decorators ```@app.route('/foo')``` functions into views.py. 
 ```python
 # in a new file views.py
 
@@ -128,7 +128,7 @@ def index():
 	
 # and so on ...
 ```
-And now in server.py you need to import views.py and to tell your routes where to find the associated functions.
+And now in server.py you need to import views.py and to tell your routes where to find the associated functions. You can rename your route functions back to the original names now if you wish.
 ```python
 # in the server.py
 # add import views with the rest of your imports
