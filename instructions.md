@@ -96,6 +96,8 @@ Note that you could attempt to set app to be a global variable and then import s
 ## Part 3
 Next try breaking the decorator ```@app.route('/foo')``` off of the associated functions and organizing them all together with functions that call their original function. Be sure to give the new function unique names to prevent python from seeing the functions as recursive (functions that call themselves). 
 ```python
+# in your server.py
+
 @app.route('/')
 def indexRoute(): 
 	return index()
