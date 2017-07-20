@@ -57,9 +57,9 @@ def new():
 	new_friend = Friend.create(request.form['name'], request.form['email'])
 
 	if new_friend[0]:
-		# do something
+		# do something if true
 	else:
-		# display the errors that are in new_friend[1]
+		# if false display the errors that are in new_friend[1]
 ```
 After rewriting your code go to ```localhost:5000``` and ensure the site still works. Modularizing a Flask app can be tricky, and catching bugs immediately after writing the code that produced them will make them easier to spot.
 ## Part 2
@@ -106,7 +106,7 @@ def indexRoute():
 def newRoute(): 
 	return new()
 
-# ... and so on ...
+# and so on ...
 ```
 Now go back to ```localhost:5000``` and test that all of the routes can still be easily reached.
 ## Part 4
@@ -122,6 +122,8 @@ Friend = FriendModel()
 def index():
 	friends = Friend.getAll()
 	return render_template('index.html', friends=friends)
+	
+and so on ...
 ```
 And now in server.py you need to import views.py and to tell your routes where to find the associated functions.
 ```python
