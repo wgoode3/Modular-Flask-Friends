@@ -28,7 +28,7 @@ class FriendModel(object):
 Friend = FriendModel()
 ```
 Then go back to your code and instead of making a SQL query using ```friends = mysql.query_db('SELECT * FROM friends')``` you can instead make a SQL query using ```friends = Friend.getAll()```.
-You want to add validations to your create method, you can make your create method work like the following:
+If you want to add validations to your methods, you can make them function like the create method below:
 ```python
 def create(self, name, email):
 	errors = []
@@ -64,6 +64,7 @@ def new():
 After rewriting your code go to ```localhost:5000``` and ensure the site still works. Modularizing a Flask app can be tricky, and catching bugs immediately after writing the code that produced them will make them easier to spot.
 ## Part 2
 The next step should be easy. You are going to move the FriendModel class to a seperate file called models.py. Note that models is plural, if you had additional tables like courses, or products you would do the same thing and break them out of your server.py and make them a part of models as well.
+
 In order to get access to app, you will create a function called db_connection that takes the arguments 'app' and 'db_name'. You will use this to create a global variable mysql. A global variable is 'scoped' so that other classes and functions outside of the function db_connection can use it.
 ```python
 # in a new file called models.py
