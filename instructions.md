@@ -100,11 +100,14 @@ Next try breaking the decorator ```@app.route('/foo')``` off of the associated f
 def indexRoute(): 
 	return index()
 
-@app.route('/new', methods=['POST'])
-def newRoute(): 
-	return new()
+# rest of your routes here...
 
-# and so on ...
+def index():
+	friends = Friend.getAll()
+	return render_template('index.html', friends=friends)
+	
+# rest of your view functions here...
+	
 ```
 Now go back to ```localhost:5000``` and test that all of the routes can still be easily reached.
 ## Part 4
